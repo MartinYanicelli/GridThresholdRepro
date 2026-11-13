@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GridThresholdRepro.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid
+        Padding="10"
+        ColumnDefinitions="*,*"
+        ColumnSpacing="20"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="10">
+
+        <!--  Left: GridItemsLayout  -->
+        <Label FontAttributes="Bold" Text="GridItemsLayout (Span 2)" />
+        <Label
+            x:Name="GridStatus"
+            Grid.Row="1"
+            AutomationId="GridStatus" />
+        <CollectionView
+            x:Name="GridView"
+            Grid.Row="2"
+            AutomationId="GridView"
+            RemainingItemsThreshold="5"
+            RemainingItemsThresholdReached="OnGridThresholdReached"
+            Scrolled="OnGridScrolled">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <Border
+                        Margin="4"
+                        Padding="10"
+                        HeightRequest="80">
+                        <Label Text="{Binding .}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--  Right: LinearItemsLayout, same data and threshold  -->
+        <Label
+            Grid.Column="1"
+            FontAttributes="Bold"
+            Text="LinearItemsLayout" />
+        <Label
+            x:Name="ListStatus"
+            Grid.Row="1"
+            Grid.Column="1"
+            AutomationId="ListStatus" />
+        <CollectionView
+            x:Name="ListView"
+            Grid.Row="2"
+            Grid.Column="1"
+            AutomationId="ListView"
+            RemainingItemsThreshold="5"
+            RemainingItemsThresholdReached="OnListThresholdReached"
+            Scrolled="OnListScrolled">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <Border
+                        Margin="4"
+                        Padding="10"
+                        HeightRequest="80">
+                        <Label Text="{Binding .}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
